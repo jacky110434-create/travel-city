@@ -2,42 +2,54 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kyoto City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>曼谷 Guide</title>
   <style>
     :root{
-      --bg:#0b1020;
-      --surface:#0f172a;
-      --card:#111c33;
-      --card2:#0f1a30;
-      --text:#e8eefc;
-      --muted:#a9b6d4;
-      --muted2:#7f8bb0;
-      --line:rgba(255,255,255,.10);
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+      /* ===== 園林夕照：宣紙米白 / 水面墨綠 / 夕陽暖金 / 黛瓦青灰 ===== */
+      --bg:#f7f1e6;
+      --surface: rgba(255,255,255,.74);
+      --card: rgba(255,255,255,.76);
+      --card2: rgba(255,255,255,.60);
+      --text:#1e2326;
+      --muted: rgba(30,35,38,.70);
+      --muted2: rgba(30,35,38,.55);
+      --line: rgba(30,35,38,.12);
+      --shadow: 0 18px 46px rgba(30,35,38,.10);
+      --shadow2: 0 10px 26px rgba(30,35,38,.08);
       --radius:18px;
 
-      --brand:#7c3aed;   /* 紫 */
-      --brand2:#22c55e;  /* 綠（點綴） */
-      --brand3:#38bdf8;  /* 藍（點綴） */
-      --chip: rgba(255,255,255,.08);
+      --brand:#2f6f66;
+      --brand2:#d9b47a;
+      --brand3:#355a63;
+      --chip: rgba(47,111,102,.10);
 
-      font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      /* ✅ 主要左右留白（會依螢幕自動調整） */
+      --page-pad: clamp(18px, 4.6vw, 24px);
+
+      font-family:
+        "Noto Serif TC","Noto Serif SC","Songti TC","STSong","Source Han Serif TC",
+        ui-serif, Georgia, "Times New Roman",
+        "Noto Sans TC","PingFang TC","Microsoft JhengHei", sans-serif;
     }
 
     *{ box-sizing:border-box; }
+
+    /* ✅ 防止水平溢出導致右側被裁/出現奇怪空白 */
+    html, body{ overflow-x: hidden; }
+
     body{
       margin:0;
       background:
-        radial-gradient(1200px 520px at 10% -10%, rgba(124,58,237,.35), transparent 55%),
-        radial-gradient(900px 420px at 90% 10%, rgba(56,189,248,.22), transparent 55%),
-        linear-gradient(180deg, #070a14, var(--bg));
+        radial-gradient(980px 560px at 50% -10%, rgba(217,180,122,.36), transparent 62%),
+        radial-gradient(1100px 640px at 18% 32%, rgba(47,111,102,.16), transparent 62%),
+        radial-gradient(980px 560px at 92% 58%, rgba(53,90,99,.10), transparent 62%),
+        linear-gradient(180deg, #fbf6ee, var(--bg));
       color:var(--text);
     }
 
     .app{
-      max-width: 460px;
+      max-width: 520px;
       margin: 0 auto;
       min-height: 100vh;
       padding-bottom: 120px;
@@ -48,14 +60,18 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      padding: 18px 16px 12px;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.10)),
-        radial-gradient(900px 360px at 30% 0%, rgba(124,58,237,.42), transparent 60%),
-        radial-gradient(900px 360px at 90% 20%, rgba(56,189,248,.18), transparent 60%),
-        rgba(15,23,42,.75);
+
+      /* ✅ 吃 safe-area：左右邊界清楚、不貼邊 */
+      padding-top: 18px;
+      padding-bottom: 12px;
+      padding-left:  calc(var(--page-pad) + env(safe-area-inset-left));
+      padding-right: calc(var(--page-pad) + env(safe-area-inset-right));
+
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(247,241,230,.92), rgba(247,241,230,.74)),
+        url("images/曼谷.jpg") center/cover no-repeat;
     }
 
     .heroTop{
@@ -72,7 +88,7 @@
     .city h1{
       margin:0;
       font-size: 20px;
-      letter-spacing: .3px;
+      letter-spacing: .6px;
       line-height: 1.2;
     }
     .city p{
@@ -82,18 +98,6 @@
       line-height: 1.4;
     }
 
-    .badge{
-      align-self:flex-start;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: linear-gradient(120deg, rgba(124,58,237,.25), rgba(56,189,248,.18));
-      border: 1px solid rgba(255,255,255,.14);
-      color: #dbeafe;
-      font-weight: 700;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
     .search{
       margin-top: 12px;
       display:flex;
@@ -101,8 +105,8 @@
       gap:10px;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(30,35,38,.14);
     }
     .search input{
       width:100%;
@@ -118,59 +122,46 @@
       white-space: nowrap;
     }
 
-    .chips{
-      display:flex;
-      gap:10px;
-      overflow-x:auto;
-      padding: 12px 2px 2px;
-      scrollbar-width:none;
-    }
-    .chips::-webkit-scrollbar{ display:none; }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--chip);
-      border: 1px solid rgba(255,255,255,.10);
-      color: var(--text);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-    .chip b{ color:#e0e7ff; }
-
     /* ===== Tabs ===== */
     .tabs{
       display:flex;
       gap:10px;
       overflow-x:auto;
-      padding: 12px 16px 6px;
+      padding: 12px 0 6px;
       scrollbar-width:none;
     }
     .tabs::-webkit-scrollbar{ display:none; }
+
     .tab{
       cursor:pointer;
       user-select:none;
       padding: 10px 12px;
       border-radius: 999px;
       font-size: 13px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(30,35,38,.12);
+      background: rgba(255,255,255,.56);
       color: var(--muted);
       transition:.15s ease;
       white-space:nowrap;
     }
     .tab.active{
-      color: #0b1020;
-      background: linear-gradient(120deg, rgba(124,58,237,.95), rgba(56,189,248,.85));
+      color: #ffffff;
+      background: linear-gradient(120deg, rgba(53,90,99,.96), rgba(47,111,102,.92));
       border-color: transparent;
       font-weight: 900;
-      box-shadow: 0 12px 30px rgba(124,58,237,.25);
+      box-shadow: 0 10px 22px rgba(53,90,99,.20);
     }
 
     /* ===== Content ===== */
-    .content{ padding: 10px 16px 0; }
+    .content{
+      padding-top: 12px;
+      padding-bottom: 8px;
+
+      /* ✅ 吃 safe-area：卡片/文字整體往中間靠 */
+      padding-left:  calc(var(--page-pad) + env(safe-area-inset-left));
+      padding-right: calc(var(--page-pad) + env(safe-area-inset-right));
+    }
+
     .section{ display:none; }
     .section.active{ display:block; }
 
@@ -197,8 +188,8 @@
     }
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.64));
+      border: 1px solid rgba(30,35,38,.12);
       border-radius: var(--radius);
       padding: 14px;
       box-shadow: var(--shadow2);
@@ -219,9 +210,10 @@
     }
     .title h3{
       margin:0;
-      font-size: 15.5px;
+      font-size: 15.6px;
       line-height: 1.25;
     }
+
     .meta{
       display:flex;
       flex-wrap:wrap;
@@ -230,12 +222,13 @@
       font-size: 12.8px;
       line-height:1.4;
     }
+
     .pill{
       padding: 6px 9px;
       border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      color: var(--muted);
+      background: rgba(47,111,102,.09);
+      border: 1px solid rgba(47,111,102,.20);
+      color: rgba(47,111,102,.92);
       font-size: 12px;
       white-space: nowrap;
     }
@@ -244,26 +237,37 @@
       display:flex;
       gap:8px;
       align-items:center;
+      flex-wrap: wrap;
+      justify-content:flex-end;
     }
+
     .btn{
       cursor:pointer;
       border:none;
       border-radius: 12px;
       padding: 10px 12px;
       font-weight: 900;
-      color: #0b1020;
-      background: linear-gradient(120deg, rgba(255,255,255,.90), rgba(255,255,255,.72));
-      box-shadow: 0 12px 28px rgba(0,0,0,.25);
+      color: #fff;
+      background: linear-gradient(120deg, rgba(53,90,99,.96), rgba(47,111,102,.92));
+      box-shadow: 0 12px 24px rgba(47,111,102,.18);
       transition:.15s ease;
       white-space:nowrap;
     }
     .btn:hover{ transform: translateY(-1px); }
+
     .btn.secondary{
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.62);
+      color: rgba(30,35,38,.90);
+      border: 1px solid rgba(30,35,38,.14);
       box-shadow:none;
       font-weight: 800;
+    }
+    .btn.ghost{
+      background: rgba(47,111,102,.10);
+      color: rgba(47,111,102,.95);
+      border: 1px solid rgba(47,111,102,.20);
+      box-shadow:none;
+      font-weight: 900;
     }
 
     .desc{
@@ -285,108 +289,259 @@
       gap: 12px;
       align-items:start;
     }
+
     .time{
       font-weight: 900;
-      color: #c7d2fe;
+      color: rgba(47,111,102,.95);
       font-variant-numeric: tabular-nums;
       padding-top: 10px;
     }
+
     .tCard{
       position: relative;
       border-radius: var(--radius);
       padding: 14px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(30,35,38,.12);
       background:
-        radial-gradient(520px 120px at 20% 0%, rgba(124,58,237,.20), transparent 60%),
-        rgba(255,255,255,.04);
+        radial-gradient(560px 160px at 22% 0%, rgba(217,180,122,.14), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62));
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
+    .tCard.compact .small{ display:none; }
+
     .tCard::before{
       content:"";
       position:absolute;
       left: 0;
       top: 0;
-      width: 4px;
+      width: 3px;
       height: 100%;
-      background: linear-gradient(180deg, var(--brand), var(--brand3));
-      opacity: .85;
+      background: linear-gradient(180deg, rgba(47,111,102,.95), rgba(217,180,122,.72));
+      opacity: .92;
     }
+
     .tCard h3{ margin:0 0 6px; font-size: 15.2px; }
     .tCard .small{ color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    .tActions{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
 
     .link{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      margin-top: 10px;
       padding: 9px 12px;
       border-radius: 999px;
-      background: rgba(56,189,248,.10);
-      border: 1px solid rgba(56,189,248,.20);
-      color:#c7ecff;
+      background: rgba(47,111,102,.10);
+      border: 1px solid rgba(47,111,102,.22);
+      color: rgba(47,111,102,.95);
       font-weight: 900;
       font-size: 13px;
       text-decoration:none;
       width: fit-content;
     }
 
-    /* ===== Bottom stay bar ===== */
-    .stay{
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 14px;
-      width: min(460px, calc(100% - 28px));
-      border-radius: 22px;
-      padding: 14px;
-      background:
-        radial-gradient(900px 220px at 10% 0%, rgba(255,255,255,.10), transparent 55%),
-        linear-gradient(135deg, rgba(124,58,237,.45), rgba(56,189,248,.18)),
-        rgba(15,23,42,.92);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .stayInfo{ min-width:0; }
-    .stayInfo .label{
-      font-size: 12.5px;
-      color: rgba(255,255,255,.80);
-      margin-bottom: 4px;
-    }
-    .stayInfo .name{
-      font-weight: 950;
-      letter-spacing:.2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .stayInfo .addr{
-      margin-top: 4px;
-      color: rgba(255,255,255,.75);
-      font-size: 12.5px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-
     .toast{
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 92px;
-      background: rgba(0,0,0,.65);
-      border: 1px solid rgba(255,255,255,.12);
+      bottom: calc(92px + env(safe-area-inset-bottom));
+      background: rgba(30,35,38,.76);
+      border: 1px solid rgba(255,255,255,.18);
       color: #fff;
       padding: 10px 12px;
       border-radius: 999px;
       font-size: 12.5px;
       display:none;
+      z-index: 90;
     }
+
+    /* ===== Card image toggle ===== */
+    .imgBox{ display: none; margin-top: 10px; }
+    .card.show-img .imgBox{ display: block; }
+    .tCard.show-img .imgBox{ display: block; }
+
+    .imgBox img{
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(30,35,38,.14);
+    }
+
+    /* ===== Explore segmented ===== */
+    .seg{
+      display:flex;
+      gap:8px;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(30,35,38,.12);
+      overflow:auto;
+      scrollbar-width:none;
+      margin: 0; /* ✅ 跟著 content 的 padding 走 */
+    }
+    .seg::-webkit-scrollbar{ display:none; }
+    .segBtn{
+      border:0;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(30,35,38,.65);
+      font-weight: 900;
+      white-space:nowrap;
+    }
+    .segBtn.active{
+      background: linear-gradient(120deg, rgba(53,90,99,.96), rgba(47,111,102,.92));
+      color:#fff;
+      box-shadow: 0 10px 20px rgba(47,111,102,.18);
+    }
+
+    /* ===== Bottom Nav ===== */
+    .bottomNav{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+
+      /* ✅ 保持容器穩定，避免某些機型 calc 出問題 */
+      width: min(520px, 100%);
+
+      /* ✅ 左右吃 safe-area，視覺邊界清楚 */
+      padding-top: 10px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      padding-left:  calc(14px + env(safe-area-inset-left));
+      padding-right: calc(14px + env(safe-area-inset-right));
+
+      background: rgba(247,241,230,.92);
+      border-top: 1px solid rgba(30,35,38,.12);
+      backdrop-filter: blur(10px);
+      display:flex;
+      justify-content:space-between;
+      gap: 8px;
+      z-index: 80;
+    }
+    .navBtn{
+      flex:1;
+      border: 0;
+      background: transparent;
+      padding: 8px 6px;
+      border-radius: 14px;
+      color: rgba(30,35,38,.65);
+      font-weight: 900;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 4px;
+      cursor:pointer;
+    }
+    .navBtn span{ font-size: 12px; }
+    .navBtn.active{
+      background: rgba(47,111,102,.10);
+      color: rgba(47,111,102,.95);
+      border: 1px solid rgba(47,111,102,.20);
+    }
+
+    /* ===== Modal ===== */
+    .modal{ display:none; position:fixed; inset:0; z-index:100; }
+    .modal.show{ display:block; }
+    .modalBackdrop{ position:absolute; inset:0; background: rgba(0,0,0,.35); }
+    .modalSheet{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: 0;
+
+      width: min(520px, 100%);
+      max-height: 82vh;
+      overflow:auto;
+
+      background: rgba(247,241,230,.96);
+      border: 1px solid rgba(30,35,38,.12);
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 18px 46px rgba(0,0,0,.18);
+
+      /* ✅ modal 也吃 safe-area，避免左右貼邊 */
+      padding-top: 16px;
+      padding-bottom: calc(18px + env(safe-area-inset-bottom));
+      padding-left:  calc(16px + env(safe-area-inset-left));
+      padding-right: calc(16px + env(safe-area-inset-right));
+      
+    }
+    .modalClose{
+      position: sticky;
+      top: 0;
+      float:right;
+      border:0;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(30,35,38,.12);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor:pointer;
+    }
+    .modalBody h2{ margin: 8px 0 6px; }
+    .modalBody .sub{ color: var(--muted); margin-bottom: 10px; font-size: 13px; }
+    .modalBody .box{
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(30,35,38,.12);
+      border-radius: 16px;
+      padding: 12px;
+      line-height: 1.7;
+      color: rgba(30,35,38,.78);
+      font-size: 13.5px;
+    }
+
+    /* ===== Bill ===== */
+    .billGrid{ display:grid; gap: 12px; }
+    .field{ display:grid; gap: 8px; }
+    .field label{
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(30,35,38,.70);
+    }
+    .input, .select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(30,35,38,.14);
+      background: rgba(255,255,255,.68);
+      outline: none;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .chipRow{ display:flex; gap: 10px; flex-wrap: wrap; }
+    .chipBtn{
+      border: 1px solid rgba(30,35,38,.14);
+      background: rgba(255,255,255,.62);
+      color: rgba(30,35,38,.78);
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight: 900;
+    }
+    .chipBtn.active{
+      background: rgba(47,111,102,.12);
+      border-color: rgba(47,111,102,.22);
+      color: rgba(47,111,102,.95);
+    }
+    .billTable{ display:grid; gap: 10px; }
+    .billRow{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(30,35,38,.12);
+    }
+    .mono{ font-variant-numeric: tabular-nums; }
   </style>
 </head>
 
@@ -395,341 +550,1302 @@
     <div class="hero">
       <div class="heroTop">
         <div class="city">
-          <h1>蘇州、上海 City Guide</h1>
-          <p>5 天 4 夜</p>
+          <h1>曼谷 City Guide</h1>
+          <p>6 天 5 夜</p>
         </div>
-        <div class="badge">離線友善 </div>
       </div>
 
       <div class="search">
         <span class="hint">🔎</span>
-        <input id="q" placeholder="搜尋景點 / 美食 / 區域（例如：祇園、嵐山）" />
+        <input id="q" placeholder="搜尋景點 / 美食 / 區域（只搜尋目前頁面）" />
         <span class="hint" id="count">0</span>
       </div>
 
-    <div class="tabs" id="tabs">
-      <div class="tab active" data-tab="day1">Day 1</div>
-      <div class="tab" data-tab="day2">Day 2</div>
-      <div class="tab" data-tab="day3">Day 3</div>
-      <div class="tab" data-tab="day4">Day 4</div>
-      <div class="tab" data-tab="day5">Day 5</div>
-      <div class="tab" data-tab="spots">精選景點</div>
-      <div class="tab" data-tab="food">美食咖啡</div>
-      <div class="tab" data-tab="info">交通資訊</div>
+      <!-- Day Tabs：只在「行程」頁時使用 -->
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-tab="day1">Day 1</div>
+        <div class="tab" data-tab="day2">Day 2</div>
+        <div class="tab" data-tab="day3">Day 3</div>
+        <div class="tab" data-tab="day4">Day 4</div>
+        <div class="tab" data-tab="day5">Day 5</div>
+        <div class="tab" data-tab="day6">Day 6</div>
+      </div>
     </div>
 
     <div class="content">
-
       <!-- Day 1 -->
       <div class="section active" id="day1" data-section="day">
         <div class="sectionTitle">
-          <h2>Day 1 · 東山散策</h2><span>經典路線｜拍照多</span>
+          <h2>Day 1</h2><span>搭飛機</span>
+        </div>
+
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 1 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day1">開啟 Google Maps 路線</button>
+            </div>
+          </div>
         </div>
 
         <div class="timeline">
           <div class="row titem" data-tags="桃園機場">
-            <div class="time">11:30</div>
-            <div class="tCard">
+            <div class="time">20:45</div>
+            <div class="tCard compact">
               <h3>桃園機場</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/ffBZdN48gvi625VE6">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">哈哈哈
+              </div>
+              <div class="imgBox">
+                <img src="images/去程.jpg" alt="桃園機場">
+              </div>              
             </div>
           </div>
 
-          <div class="row titem" data-tags="上海機場">
-            <div class="time">13:30</div>
-            <div class="tCard">
-              <h3>上海機場</h3>
-            </div>
-          </div>
-        
-          <div class="row titem" data-tags="全季酒店">
-            <div class="time">14:30</div>
-            <div class="tCard">
-              <h3>四季酒店</h3>
+
+          <div class="row titem" data-tags="曼谷BKK機場">
+            <div class="time">23:30</div>
+            <div class="tCard compact">
+              <h3>曼谷BKK機場</h3>
+              <div class="small">60分鐘左右出海關，包車前往住宿。</div>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/gxhdS9quGPxw2acKA">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="imgBox">
+                <img src="images/bkk.jpg" alt="bkk">
+              </div>              
             </div>
           </div>
 
-          <div class="row titem" data-tags="虎丘">
-            <div class="time">15:30</div>
-            <div class="tCard">
-              <h3>虎丘</h3>
-              <div class="small">門票70r<br>⏰ 时间：07:30-17:30（17:00停止入场）<br>
-                  推荐路线(全程约2.5h)<br>
-                  南门➠海涌桥➠拥翠山庄➠红枫林➠冷香阁➠第三泉➠剑池➠雪浪亭➠虎丘塔➠一榭园（北门）➠百步趋➠望苏台➠养鹤涧➠万景山庄➠南门<br>
-                   17:30 最後一班船到山塘街。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=先斗町">📍 開地圖</a>
-            </div>
-          </div>
-
-          <div class="row titem" data-tags="七里山塘">
-            <div class="time">18:00</div>
-            <div class="tCard">
-              <h3>七里山塘</h3>
-              <div class="small">游览顺序:<br>
-                  新民桥以北→山塘景区→阊门→民国风情街<br>
-                  √新民桥以北:以各种小吃居多，一直走可以到虎丘<br>
-                  √山塘景区打卡点:新民桥；商会博物馆；通贵桥；<br>白居易纪念苑；海市山塘(很多网红小吃)<br>
-                  √阊门:七里山塘的起点<br>
-                  √民国风情街:民国特色的建筑，很出片兰游船<br>
-                  =============================<br>
-                  游船🚢路線:<br>
-                  路线1山塘街古戏台码头→野芳浜→下塘码头<br>
-                  全程30min,船票$50 售票时间:8:00 -20:50<br>
-                  =============================<br>
-                  美食:<br>
-                  姑蘇船宴、熊貓蘇式火鍋、茉小茶、張小蟹、熊貓蘇式豆花
-                  、居易茶酒樓、江南蟹殼黃、益昌福包子、萬福義糕糰、裕興記、鑫震源
-                  </div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=先斗町">📍 開地圖</a>
+          <div class="row titem" data-tags="還不知道要住哪">
+            <div class="time">01:30</div>
+            <div class="tCard compact">
+              <h3>Sukhumvit 11</h3>
+              <div class="small">Sukhumvit 11</div>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/a2X3Ar1SJ3azTeTU8">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="imgBox">
+                <img src="images/住宿.jpg" alt="住宿">
+              </div>              
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Day 2 -->
+<!-- Day 2 -->
       <div class="section" id="day2" data-section="day">
         <div class="sectionTitle">
-          <h2>Day 2 · 嵐山自然日</h2><span>竹林＋河岸｜步行多</span>
+          <h2>Day 2</h2><span>老城、河畔區</span>
+        </div>
+
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 2 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day2">開啟 Google Maps 路線</button>
+            </div>
+          </div>
         </div>
 
         <div class="timeline">
-          <div class="row titem" data-tags="拙政園">
-            <div class="time">07:30</div>
-            <div class="tCard">
-              <h3>拙政園</h3>
-              <div class="small">越早越少人，拍照比較不會擠。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=嵐山竹林">📍 開地圖</a>
-            </div>
-          </div>
-
-          <div class="row titem" data-tags="蘇州博物館">
+          <div class="row titem" data-tags="大皇宮">
             <div class="time">13:00</div>
-            <div class="tCard">
-              <h3>蘇州博物館</h3>
-              <div class="small">河岸風景很舒服，下午喝咖啡剛好。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=渡月橋">📍 開地圖</a>
+            <div class="tCard compact">
+              <h3>大皇宮</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/pcSwQRVhjwrwvH4g7">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">🎫 🎫 門票&購票攻略<br>
+                票價：500泰銖/人<br>
+                包含專案：大皇宮+玉佛寺+皇家博物館+孔劇表演（表演我們沒看成，退房時間太趕啦😭）<br>
+                購票方式：線上/線下均可，我們直接現場買，支援微信/支付寶，超方便！<br>
+                <br>🧳 導遊體驗（強推！ ）<br>
+                花500泰銖請了當地導遊，全程帶你逛遍所有景點，邊走邊講泰國歷史和建築故事，還會幫你找絕佳機位拍照 📸<br>
+                沒有導遊的話，很多精美雕刻和壁畫的寓意真的會看不懂，絕對值回票價！<br>
+                <br>🏯 必看亮點<br>
+                黃金佛塔：鎏金尖頂在陽光下閃到發光，隨手一拍都是大片<br>
+                巨型門神：玉佛寺門口的彩色守護神雕像，威嚴又華麗，是必打卡的網紅機位<br>
+                羅摩衍那壁畫：長廊裡的巨幅史詩壁畫，色彩濃郁，導遊講解後才懂每幅畫的故事<br>
+                玉佛寺主殿：供奉著泰國國寶級翡翠玉佛，進殿要脫鞋，殿內禁止拍照，一定要保持安靜哦<br>
+                <br>📌 著裝要求（劃重點！ ）<br>
+                ✅ 上衣必須有袖，禁止無袖/背心<br>
+                ✅ 下裝需長褲或過膝長裙，現場可免費租借，但自帶更衛生<br>
+                ✅ 進入玉佛寺主殿必須脫鞋，殿內嚴禁拍照，尊重當地習俗<br>
+                <br>💡 遊玩小貼士<br>
+                建議預留2-3小時慢慢逛，跟著導遊走不會迷路<br>
+                大皇宮中午人最多，盡量早上去，光線更好也更涼快<br>
+                孔劇表演別錯過！ 我們因為退房趕時間沒看成，留了小遺憾，大家一定要規劃好時間呀<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/大皇宮.jpg" alt="大皇宮">
+              </div>              
             </div>
           </div>
 
-          <div class="row titem" data-tags="獅子林">
+
+          <div class="row titem" data-tags="臥佛寺"> 
+            <div class="time">15:00</div>
+            <div class="tCard compact">
+              <h3>臥佛寺</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/6BJrnN2E6VCX7Kys7">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+              🚶 推薦路線<br>
+              卧佛殿→佛塔群→主佛殿→泰式傳統按摩<br>
+              ⏳ 整體遊玩時間：70min，不含按摩時間<br>
+              <br>
+              📍 主要景點<br>
+              ⭐️⭐️ 卧佛殿：核心區域，46米鍍金卧佛，世界最大臥佛，表現佛陀涅槃姿態<br>
+              腳底雕刻：鑲珍珠母貝雕刻108吉祥圖案，寓意深遠<br>
+              投缽祈福：卧佛身後108青銅缽，可換硬幣沿缽盂投擲祈福<br>
+              壁畫牆：講述佛教故事、泰式醫學典籍，細節豐富<br>
+              <br>
+              ⭐️⭐️ 佛塔群<br>
+              4大佛塔：代表拉瑪一世至四世，綠黃藍橙四色瓷磚鑲嵌，陽光下閃耀奪目<br>
+              91座小型佛塔：環繞主殿如「塔林」，象徵佛教宇宙觀<br>
+              <br>
+              主佛殿<br>
+              寺院中最神聖的建築，用於舉行僧侶的受戒儀式和重要的皇家典禮<br>
+              精美山牆：殿門和窗棂上裝飾著精美的珍珠母貝鑲嵌，描繪了神話場景，工藝極其繁複精細<br>
+              那伽蛇神守護：通往主殿的階梯由那伽（Naga）蛇神雕塑守護，氣勢非凡<br>
+              <br>
+              ⭐️⭐️⭐️ 泰式傳統按摩：寺廟內正規按摩學院，泰式按摩發源地<br>
+              <br>強烈推薦！ 最正宗的泰式按摩，性價比高。 有多種類型，推薦全身泰式按摩，520泰銖/60分鐘，大房拼床的形式。 需要取號填單，人多需要等，結束後會給一瓶水，下班早盡量早去
+              <br>
+              📌 基本資訊<br>
+              🚌 交通：<br>
+              1️⃣大皇宮步行10分鐘<br>
+              2️⃣BTS至Saphan Taksin站→乘公交船至Tha Tien（N8）碼頭→步行3分鐘<br>
+              3️⃣MRT至Sanam Chai站→步行5分鐘<br>
+              Grab打車定位“Wat Pho”<br>
+              ⏰ 時間：8：30-18：30（按摩院至17：00）<br>
+              🎫 門票：卧佛寺300泰銖|持大皇宮聯票可免費參觀！<br>
+              🔖 預約：現場購票<br>
+              <br>
+              💡 小貼士<br>
+              ✅ 著裝要求：與大皇宮相同（不可露肩/短褲），進入卧佛殿和主佛殿需脫鞋<br>
+              ✅ 拍照機位：卧佛腳底端廣角拍全景/佛塔群仰拍層次感<br>
+              ✅ 硬幣投缽：入口處兌換，20泰銖換一碗硬幣，投缽時默念祈福語<br>
+              <br>
+              🚢 周邊玩法<br>
+              ▪️ 大皇宮/玉佛寺：卧佛寺正門對面步行10分鐘可達<br>
+              ▪️Tha Tien碼頭：坐擺渡船至對岸鄭王廟<br>
+              ▪️ 湄南河遊船：碼頭可訂長尾船遊覽，穿越老城區水上市場<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/臥佛寺.jpg" alt="臥佛寺">
+              </div>              
+            </div>
+          </div>
+
+          <div class="row titem" data-tags="鄭王廟">
             <div class="time">16:30</div>
-            <div class="tCard">
-              <h3>獅子林</h3>
-              <div class="small">如果時間夠就去，回程注意交通時間。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=金閣寺">📍 開地圖</a>
+            <div class="tCard compact">
+              <h3>鄭王廟</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/F4betmFSfTBZaVzw9">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                📍 主要景點<br>
+                1️⃣中央主佛塔（巴壤塔）：79米高，由泰國民族英雄鄭信王修繕，拉瑪二三四世建造擴建並完成，象徵佛教宇宙觀中的須彌山。 四側階梯守護娜伽蛇神，階梯十分陡峭可攀登半程; 數百萬片來自中國的廢棄瓷碗和彩色琉璃拼接成華麗圖案的陶瓷鑲嵌外牆，近看細節震撼<br>
+                2️⃣四座陪塔：鍾形佛塔群環繞主塔，分別代表風、水、火、土四大元素，塔鈴隨風鳴響非常治癒<br>
+                3️⃣第二佛殿區<br>
+                兩個巨大守護夜叉<br>
+                佛殿1：受戒殿，尼拉米特佛殿，拉瑪二世的一些骨灰被安葬在主持神聖的金色尼拉米特佛像的底座上<br>
+                佛殿2：內有豐富壁畫的佛殿<br>
+                <br>
+                📌 基本資訊<br>
+                📍 交通：<br>
+                1️⃣卧佛寺門口Tha Tien（N8）碼頭→乘擺渡船5泰銖/5分鐘（最推薦！ ）<br>
+                2️⃣BTS至Saphan Taksin站→轉橙旗公交船至Wat Arun碼頭<br>
+                3️⃣Grab打車定位“Wat Arun”<br>
+                ⏰ 時間：8：00-18：00（17：30停止入場）<br>
+                🎫 門票：200泰銖只收現金，送一瓶水，入口會給手蓋個印，當日可多次進出<br>
+                💡 亮燈時間：每日日落-21：00<br>
+                
+                💡 小貼士
+                ✅ 最佳時段：早晨8：30開館時（人少光好）/ 傍晚16：30后（柔和夕陽光+藍調時刻）<br>
+                ✅ 著裝要求：可露肩但需過膝下裝<br>
+                ✅ 登塔注意：階梯極陡需手腳並用，老人小孩不建議攀登<br>
+                ✅ 隱藏機位：河對岸酒吧、咖啡館露台<br>
+                ✅ 泰服體驗：碼頭附近多家租賃店（200-300泰銖/套），建議選淺色系與背景更搭<br>
+                <br>
+                🚢 周邊玩法<br>
+                ▪️ 卧佛寺：擺渡船3分鐘直達<br>
+                ▪️Tha Tien市場：碼頭傳統集市，嘗芒果糯米飯、冰鎮椰子<br>
+                ▪️ 湄南河遊船：傍晚乘長尾船環遊（150泰銖/人），欣賞兩岸古跡燈光  <br>
+               </div>
+              <div class="imgBox">
+                <img src="images/鄭王廟.jpg" alt="鄭王廟">
+              </div>
             </div>
           </div>
 
-          <div class="row titem" data-tags="江平路">
-            <div class="time">16:30</div>
-            <div class="tCard">
-              <h3>江平路</h3>
-              <div class="small">如果時間夠就去，回程注意交通時間。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=金閣寺">📍 開地圖</a>
+          <div class="row titem" data-tags="ICONSIAM">
+            <div class="time">18:00</div>
+
+            <div class="tCard compact">
+              <h3>ICONSIAM</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/VMRRYDM4aNcKpUBj9">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                📍Iconsiam暹罗天地<br>
+                G层(P6-10)：曼谷最大的室内水上集市，有美食、服饰、鞋包、纪念品等各种摊位，还有手作冰箱贴，非常好逛；Dear Tummy超市可选购伴手礼，有试吃很方便<br>
+                M层：奢侈品牌<br>
+                1层：D Bake网红斑斓华夫饼<br>
+                3层：Loft是一家本土集合店，有很多精致漂亮的小东西，还有纪念品、冰箱贴<br>
+                5-6层：各种餐厅，还有网红Toro Fries超长薯条<br>
+                6层(P11)：中庭有个15m瀑布从楼顶落下，旁边装点了一些好看的热带植物<br>
+                7层：从这里拍瀑布比较合适(P12)；这层有一家很大的泡泡玛特；在星巴克旁边有一个免费露台，可以出去看湄南河夜景、拍像素大厦(P13-15)📸<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/暹羅天地.jpg" alt="暹羅天地">
+              </div>
             </div>
           </div>
-
-          <div class="row titem" data-tags="觀前街">
-            <div class="time">16:30</div>
-            <div class="tCard">
-              <h3>觀前街</h3>
-              <div class="small">如果時間夠就去，回程注意交通時間。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=金閣寺">📍 開地圖</a>
-            </div>
-          </div>
-
         </div>
       </div>
 
       <!-- Day 3 -->
       <div class="section" id="day3" data-section="day">
         <div class="sectionTitle">
-          <h2>Day 3 · 伏見＋收尾</h2><span>鳥居＋伴手禮</span>
+          <h2>Day 3</h2><span>暹羅區</span>
+        </div>
+
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 3 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day3">開啟 Google Maps 路線</button>
+            </div>
+          </div>
         </div>
 
         <div class="timeline">
-          <div class="row titem" data-tags="十全街">
-            <div class="time">08:30</div>
-            <div class="tCard">
-              <h3>十全街</h3>
-              <div class="small">早去最重要，走到中段拍照就很夠了。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=伏見稻荷大社">📍 開地圖</a>
+          <div class="row titem" data-tags="四面佛">
+            <div class="time">12:00</div>
+
+            <div class="tCard compact"
+            data-place="494 Ratchadamri Rd, Lumphini, Pathum Wan, Bangkok 10330泰國">
+              <h3>四面佛</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/SPpTk1h3MLfavAbz8">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                1. 入口&准备<br>
+                从图里的入口进去，先在入口右手边旁边买香烛套组（一般是12支香+4支蜡烛+4串花）。不用带别的，现场买最方便，别买多，一套就够。<br>
+                2. 顺时针方向（跟着箭头走）<br>
+                第1面（正对入口）：手拿佛珠<br>
+                2. 第2面：手握权，<br>
+                3. 第3面：手拿贝壳<br>
+                4. 第4面：手拿金砖🧱拜完这一面就结束了！<br>
+                很多人会问要不要再回到第一面，切记不需要哈，拜到第4面就可以走了，不用再绕回第1面重复拜。<br>
+                全程顺时针走，别乱方向。想还愿的话，等愿望实现了再来，还愿可以去旁边的舞区请舞者跳舞<br>
+                              </div>
+              <div class="imgBox">
+                <img src="images/四面佛.jpg" alt="四面佛">
+              </div>
             </div>
           </div>
 
-          <div class="row titem" data-tags="觀師園">
-            <div class="time">12:00</div>
-            <div class="tCard">
-              <h3>觀師園</h3>
-              <div class="small">最後採買，注意行李重量與退稅。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=錦市場">📍 開地圖</a>
+
+          <div class="row titem" data-tags="Central World">
+            <div class="time">13:00</div>
+            <div class="tCard compact">
+              <h3>Central World</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/YedWmGapDQ9ui6Gh7">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">全球規模最大的購物中心之一，建築體量巨集大' '門前寬闊的廣場是曼谷大型慶典（如新年倒計時）的核心場地</div>
+              <div class="imgBox">
+                <img src="images/centralworld.jpg" alt="centralworld">
+              </div>
             </div>
           </div>
 
-          <div class="row titem" data-tags="金雞湖">
-            <div class="time">12:00</div>
-            <div class="tCard">
-              <h3>金雞湖</h3>
-              <div class="small">最後採買，注意行李重量與退稅。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=錦市場">📍 開地圖</a>
+          <div class="row titem" data-tags="SIAM Center">
+            <div class="time">15:00</div>
+            <div class="tCard compact">
+              <h3>SIAM Center</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/cZwBNnDZfyoRWHCy7">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">坐落於昭披耶河畔，建築外觀如流動的水波' '內部設有“暹羅樂城”室內水上市場，彙集全泰77府文化與美食</div>
+              <div class="imgBox">
+                <img src="images/SIAM Center.jpg" alt="SIAM Center">
+              </div>
             </div>
           </div>
 
-          <div class="row titem" data-tags="月光馬頭">
-            <div class="time">12:00</div>
-            <div class="tCard">
-              <h3>月光馬頭</h3>
-              <div class="small">最後採買，注意行李重量與退稅。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=錦市場">📍 開地圖</a>
-            </div>
-          </div>
-          
-          <div class="row titem" data-tags="東方之門">
-            <div class="time">12:00</div>
-            <div class="tCard">
-              <h3>東方之門</h3>
-              <div class="small">最後採買，注意行李重量與退稅。</div>
-              <a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=錦市場">📍 開地圖</a>
+          <div class="row titem" data-tags="朱拉隆功夜市">
+            <div class="time">17:00</div>
+            <div class="tCard compact">
+              <h3>朱拉隆功夜市</h3>
+              <div class="tActions">
+                <a class="link" target="_blank" href="https://maps.app.goo.gl/pMbNg8kTbQupaFsj6">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                1️⃣【松松海鮮店】 🦀<br>
+                ✨ 推薦咖喱蟹肉，烤海蝦🦞（老大了），<br>
+                適合中國人的胃，尤其是咖喱炒蟹肉能全部吃乾淨 價格人均100多，6點之後就會要排隊，門口拿號<br>
+                📍 打車搜索：Som Som Seafood<br>
+                <br>
+                2️⃣【牛奶小子 Nueng Nom Nua】 🥛<br>
+                吃完消食，散步過來，進去我就會買上5瓶~<br>
+                ✨ 推薦原味的鮮奶🥛+吐司🍞，抹茶🍵味道的也不錯<br>
+                奶味是屬於比較濃郁的，很純真<br>
+                🕒 上班時間：16：00 開始，賣完為止<br>
+                過年前後排隊的人會很多，可以早點過去<br>
+                <br>
+                3️⃣網紅媽媽面【Jeh O Chula】 🍜<br>
+                Mama麵館🔥太火了，排了我2小時 餓暈了還去街對面500米吃了瓦罐牛肉（結果意外好吃😋）<br>
+                ❗️ 宵夜人超多，配料可以自己選加超豐富~<br>
+                📍 推薦：冬陰功Mama面、炸豬頸肉 🥩<br>
+                Ps我帶朋友去個別真的不愛吃<br>
+                🕒 上班時間：17：00–00：00（周日休息）<br>
+                📍 位址：Chula Soi 22（或搜店名）<br>
+                <br>
+                4️⃣段哥餐廳【HERE DUAN】<br>
+                馬來西亞🇲🇾人氣餐廳，蠻多特色菜品，很值得一試<br>
+                有次特意帶朋友過來吃，來晚了特色菜都沒了 😔<br>
+                PS店內只能現金💴（因為沒帶現金還跑去火鍋店換的）<br>
+                <br>
+                5️⃣甜品店【Yolk Egg Tart】百麗宮也有<br>
+                推薦主打爆漿蛋撻🥧我買了抹茶🍵口味的，千層酥皮超級香❗️人民幣40幾一個<br>
+                📍 推薦：抹茶流心蛋撻、原味蛋撻<br>
+                🕒 上班時間：11：00–22：00<br>
+                <br>
+                6️⃣【June Pang】甜品吐司🍞店<br>
+                推薦吐司搭配🥥霜淇淋，吐司外酥內軟 🤤<br>
+                <br>
+                7️⃣ lisa同款冰店【Jae Wan】<br></div>
+              <div class="imgBox">
+                <img src="images/朱拉隆功夜市.jpg" alt="朱拉隆功夜市">
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Spots -->
-      <div class="section" id="spots" data-section="list">
+      <!-- Day 4 -->
+      <div class="section" id="day4" data-section="day">
         <div class="sectionTitle">
-          <h2>精選景點</h2><span>收藏清單</span>
+          <h2>Day 4</h2><span>沿海路線</span>
         </div>
 
-        <div class="grid">
-          <div class="card item" data-tags="清水寺 東山">
-            <div class="cardHead">
-              <div class="title">
-                <h3>清水寺</h3>
-                <div class="meta">
-                  <span class="pill">⏱️ 1.5–2 hr</span>
-                  <span class="pill">📸 必拍</span>
-                  <span class="pill">🚶‍♂️ 坡道多</span>
-                </div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 4 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day4">開啟 Google Maps 路線</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="row titem" data-tags="海軍射擊場">
+            <div class="time">13:00</div>
+
+            <div class="tCard compact"
+            data-place="ซอย ลาซาล Bang Na Tai, Bang Na, Bangkok 10260泰國">
+              <h3>海軍射擊場</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/MgNz7GK2zkohQTY27">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
               </div>
-              <div class="actions">
-                <button class="btn secondary" data-copy="清水寺">複製</button>
-                <button class="btn" data-map="https://www.google.com/maps/search/?api=1&query=清水寺">地圖</button>
+              <div class="small">
+                🏠导航地址：Bang Na Royal Thai Navy Shooting Range<br>
+                谷歌地址：Ratchanawi Bang Na Shooting Range ซอย ลาซาล Bang Na Tai ,Bang Na ,Bangkok10260<br>
+                （从市区建议打车来，均价180🐷左右≈40 RMB）<br>
+                  <br>
+                ⏰营业时间：<br>
+                【周一】休息😴<br>
+                【周二～周日】9:00 AM—16:00 PM<br>
+                ⚠️最晚14:00进场（节假日13:00）<br>
+                ⚠️午休11:45-12:45（无法取子弹，避开这个时间）<br>
+                  <br>
+                💳必备证件：护照原件！护照原件！护照原件！<br>
+                  <br>
+                工作人员都会中文，交流无障碍👍<br>
+                  <br>
+                ✨ 体验流程&出片技巧<br>
+                1. 提前线上预约，到场后护照登记、领号码牌￼￼￼<br>
+                2. 领取防护装备后等待叫号，教练1对1指导姿势，新手不用慌￼￼￼￼￼￼<br>
+                3. 射击后在安全区摆拍，戴护目镜更出片，推荐持枪站姿、射击瞬间抓拍￼￼￼￼￼￼<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/海軍射擊場.jpg" alt="海軍射擊場">
               </div>
             </div>
-            <p class="desc">搭配二年坂/三年坂一路逛下去最順，傍晚人會爆多。</p>
           </div>
 
-          <div class="card item" data-tags="嵐山 竹林">
-            <div class="cardHead">
-              <div class="title">
-                <h3>嵐山竹林</h3>
-                <div class="meta">
-                  <span class="pill">🌿 自然</span>
-                  <span class="pill">⏱️ 2–4 hr</span>
-                  <span class="pill">🚆 JR 可到</span>
-                </div>
+          <div class="row titem" data-tags="三頭神像博物館">
+            <div class="time">15:00</div>
+            <div class="tCard compact"
+            data-place="JHHQ+CH หมู่ที่1, 99 Kanchanaphisek Rd, Bang Mueang Mai, Mueang Samut Prakan District, Samut Prakan 10270泰國">
+              <h3>三頭神像博物館</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/fQ84rMXGLzZpwff88">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
               </div>
-              <div class="actions">
-                <button class="btn secondary" data-copy="嵐山竹林">複製</button>
-                <button class="btn" data-map="https://www.google.com/maps/search/?api=1&query=嵐山竹林">地圖</button>
+              <div class="small">
+                ⏰营业时间：<br>
+                9:00-18:00（17:00停止入场，早10点前到避人流）<br>
+                🎫门票：<br>
+                现场成人400泰铢（约80元）、<br>
+                儿童200泰铢；线上订50-60元更划算，直接扫码进不用排队<br>
+                  <br>
+                🚗交通：<br>
+                ✅ BTS到「E17 Chang Erawan」站，2号口出步行10分钟直达<br>
+                ✅ 市区Grab打车40分钟，约80元，记得选by meter<br>
+                  <br>
+                💡避坑Tips：<br>
+                ❶ 必须脱鞋！穿一脚蹬超方便，门口有免费鞋架<br>
+                ❷ 短裙短裤别慌，馆内免费借披肩纱笼<br>
+                ❸ 泰服租赁350-650泰铢，加600泰铢可做妆发<br>
+                ❹ 顺路冲暹罗古城，15分钟车程，建议买套票一天打卡俩景点<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/三頭神像博物館.jpg" alt="三頭神像博物館">
               </div>
             </div>
-            <p class="desc">早上去才有「空景」照片。中午之後比較擠。</p>
           </div>
 
-          <div class="card item" data-tags="伏見稻荷 鳥居">
-            <div class="cardHead">
-              <div class="title">
-                <h3>伏見稻荷大社</h3>
-                <div class="meta">
-                  <span class="pill">⛩️ 經典</span>
-                  <span class="pill">⏱️ 1–3 hr</span>
-                  <span class="pill">🌅 早去</span>
-                </div>
+          <div class="row titem" data-tags="暹羅古城">
+            <div class="time">16:30</div>
+            <div class="tCard compact"
+            data-place="296, 1 Sukhumvit Rd, Bang Pu Mai, Mueang Samut Prakan District, Samut Prakan 10280泰國">
+              <h3>暹羅古城</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/6rMqG6kQnj1zTpM59">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
               </div>
-              <div class="actions">
-                <button class="btn secondary" data-copy="伏見稻荷大社">複製</button>
-                <button class="btn" data-map="https://www.google.com/maps/search/?api=1&query=伏見稻荷大社">地圖</button>
+              <div class="small">
+                📍暹罗古城<br>
+                🚇乘坐BTS【Kheha】站下车，再打车5min～<br>
+                🚕曼谷市区打车过去40分钟<br>
+                ⏰9:00-19:00<br>
+                🎫建议网上买票，比现场划算很多！国内大部分app都可以买～<br>
+                ✔️园区交通：园区很大，景点很多❗️电动车、高尔夫球车、游园车、自行车🚲可供选择～<br>
+                  <br>
+                ▪️【拍照游玩攻略】<br>
+                ✅入园先领一份中文地图🗺️<br>
+                1️⃣罗汉殿（360度震撼水上佛殿！<br>
+                2️⃣圣佩奇宝殿（1:1 复原大城王朝的辉煌宫殿<br>
+                3️⃣兜率宫（曼谷王朝时期纯正的泰式宫殿<br>
+                4️⃣无限佛界（佛教圣地，108尊佛像群很震撼<br>
+                6️⃣大鱼神（鲶鱼环绕整座湖心建筑<br>
+                7️⃣素可泰玛（素可泰时期的佛像代表作<br>
+                8️⃣北标佛迹殿（巨型龙爪阶梯，拍照很出片<br>
+                9️⃣水上市场（有泰式传统表演<br>
+                ✔️除此之外，还有很多大大小小的景点，可以慢慢探索、慢慢逛！大象互动、各种各样的表演～<br>
+                  <br>
+                ▪️游玩tips<br>
+                1入口处可寄存行李，注意防嗮<br>
+                2景区自助餐（冬阴功、芒果糯米饭等等<br>
+                3有传统泰服体验，男生女生都有<br>
+                              </div>
+              <div class="imgBox">
+                <img src="images/暹羅古城.jpg" alt="暹羅古城">
               </div>
             </div>
-            <p class="desc">不一定要爬到山頂，中段拍完就很滿足。</p>
+          </div>
+
+          <div class="row titem" data-tags="海鷗馬頭">
+            <div class="time">18:00</div>
+
+            <div class="tCard compact"
+            data-place="164 Sukhumvit Rd, Bang Pu Mai, Mueang Samut Prakan District, Samut Prakan 10280泰國">
+              <h3>海鷗馬頭</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/425oFhx65pUmAZMX9">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                📍地点：Bang Pu Recreation Center（googlemap直接输BangPu就行）<br>
+                ⏰时间：16:30–18:30<br>
+                后面几张蓝色的是四点左右的光线哦，五点半左右会进入金黄模式！六点左右太阳会变成咸蛋黄模式🌞<br>
+                🚇交通：BTS素坤逸线（浅绿色线）到 Kheha，3号出口出去之后坐双排车，可以给司机比海鸥飞的姿势他们就懂啦，价格是10铢，回来是在下车的更里边儿上车是15铢。（BTS可以在人工窗口买单日票更划算哦，有效期是到当天24点🕛）<br>
+                🍟 投喂：栈桥上可以买炸小鱼（20–50泰铢）抛到空中，海鸥会直接俯冲接住哦！<br>
+              </div>
+              <div class="imgBox">
+                <img src="images/海鷗馬頭.jpg" alt="海鷗馬頭">
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Food -->
+      <!-- Day 5 -->
+      <div class="section" id="day5" data-section="day">
+        <div class="sectionTitle">
+          <h2>Day 5</h2><span>百貨區</span>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 5 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day5">開啟 Google Maps 路線</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="row titem" data-tags="Terminal 21">
+            <div class="time">13:00</div>
+
+            <div class="tCard compact">
+              <h3>Terminal 21</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/khyQRo4S9hPmdaR6A">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                以機場航站樓為概念，每層樓裝飾主題對應一個國際知名城市' '例如倫敦層有紅色電話亭，三藩市層有金門大橋模型
+              </div>
+              <div class="imgBox">
+                <img src="images/Terminal21.jpg" alt="Terminal21">
+              </div>
+            </div>
+          </div>
+
+          <div class="row titem" data-tags="EMsphere">
+            <div class="time">15:30</div>
+
+            <div class="tCard compact">
+              <h3>EMsphere</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/33RS4voJsPb2Qwcv9">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+                首层不摆大牌，直接给了Em Market——水泥裸装、档口乱中有序的室内市集🍜
+红橙色调一整个食欲拉满，二楼是本地小馆，楼上才是零售+夜店
+The Mall集团太懂了：年轻人早就不吃“端着”那一套，要的就是松弛感～“来都来了顺便买点”，不是冲着牌子来的
+              </div>
+              <div class="imgBox">
+                <img src="images/EMsphere.jpg" alt="EMsphere">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Day 6 -->
+      <div class="section" id="day6" data-section="day">
+        <div class="sectionTitle">
+          <h2>Day 6</h2><span>go home</span>
+        </div>
+
+        <div class="card" style="margin-bottom:12px;">
+          <div class="cardHead">
+            <div class="title">
+              <h3>DAY 6 ROUTE</h3>
+            </div>
+            <div class="actions">
+              <button class="btn" data-route="day6">開啟 Google Maps 路線</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <!-- 上午 -->
+          <div class="row titem" data-tags="曼谷BKK機場">
+            <div class="time">08:30</div>
+
+            <div class="tCard compact">
+              <h3>曼谷BKK機場</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/KpgdLteQrVudBBJEA">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+              </div>
+              <div class="imgBox">
+                <img src="images/bkk.jpg" alt="bkk">
+              </div>
+            </div>
+          </div>
+
+          <div class="row titem" data-tags="桃園機場">
+            <div class="time">13:25</div>
+            <div class="tCard compact">
+              <h3>桃園機場</h3>
+              <div class="tActions">
+                <a class="link" target="_blank"
+                  href="https://maps.app.goo.gl/WkWiLjcwXvMEiupa7">📍 開地圖</a>
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+              <div class="small">
+              </div>
+              <div class="imgBox">
+                <img src="images/桃園機場.jpg" alt="正大廣場">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Explore（用你的美食資料 + 分類篩選） -->
       <div class="section" id="food" data-section="list">
         <div class="sectionTitle">
-          <h2>美食咖啡</h2><span>就近安排</span>
+          <h2>探索</h2><span>美食清單</span>
         </div>
 
-        <div class="grid">
-          <div class="card item" data-tags="抹茶 甜點 祇園">
+        <div class="seg" id="foodSeg">
+          <button class="segBtn active" data-foodfilter="all">全部</button>
+          <button class="segBtn" data-foodfilter="朱拉隆功">朱拉隆功</button>
+          <button class="segBtn" data-foodfilter="平江路">平江路</button>
+          <button class="segBtn" data-foodfilter="觀前">觀前街</button>
+          <button class="segBtn" data-foodfilter="十全街">十全街</button>
+          <button class="segBtn" data-foodfilter="other">其他</button>
+        </div>
+
+        <div class="grid" style="margin-top:12px;" id="foodGrid">
+          <!-- 你的 Food 卡片：原樣保留，只補上 data-area 讓分類好用 -->
+          <div class="card item" data-tags="朱拉隆功｜松松海鲜店">
             <div class="cardHead">
               <div class="title">
-                <h3>祇園抹茶甜點</h3>
-                <div class="meta">
-                  <span class="pill">🍵 抹茶</span>
-                  <span class="pill">⏱️ 30–60 min</span>
-                </div>
+                <h3>朱拉隆功｜松松海鲜店</h3>
               </div>
               <div class="actions">
-                <button class="btn" data-toast="把「祇園抹茶」加入清單">加入</button>
+                <button class="btn secondary" data-img="images/松松海鲜店.jpg">看圖片</button>
               </div>
             </div>
-            <p class="desc">下午茶很適合插在行程空檔，避開晚餐尖峰。</p>
+            <p class="desc">
+              1️⃣【松松海鲜店】🦀<br>
+              ✨推荐咖喱蟹肉，烤海虾🦞（老大了）<br>
+              适合中国人的胃，尤其是咖喱炒蟹肉能全部吃干净<br>
+              价格人均100多，6点之后就会要排队，门口拿号<br>
+              📍打车搜索：Som Som Seafood
+            </p>
+
+            <div class="imgBox">
+              <img src="images/松松海鲜店.jpg">
+            </div>
           </div>
 
-          <div class="card item" data-tags="拉麵 晚餐">
+          <div class="card item" data-tags="山朱拉隆功｜牛奶小子 Nueng Nom Nua">
             <div class="cardHead">
               <div class="title">
-                <h3>拉麵/居酒屋晚餐</h3>
+                <h3>朱拉隆功｜牛奶小子 Nueng Nom Nua</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/牛奶小子 Nueng Nom Nua.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">
+              2️⃣【牛奶小子 Nueng Nom Nua】🥛<br>
+              吃完消食，散步过来，进去我就会买上5瓶～<br>
+              ✨推荐原味的鲜奶🥛+吐司🍞，抹茶🍵味道的也不错<br>
+              奶味是属于比较浓郁的，很纯真<br>
+              🕒 营业时间：16:00 开始，卖完为止<br>
+              过年前后排队的人会很多，可以早点过去</p>
+
+            <div class="imgBox">
+              <img src="images/牛奶小子 Nueng Nom Nua.jpg">
+            </div>
+          </div>
+
+          <div class="card item" data-tags="山塘街｜張小蟹">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜張小蟹</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/張小蟹.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">3️⃣网红妈妈面【Jeh O Chula】🍜<br>
+              Mama面馆🔥太火了，排了我2小时<br>
+              饿晕了还去街对面500米吃了瓦罐牛肉（结果意外好吃😋）<br>
+              ❗️宵夜人超多，配料可以自己选加超丰富～<br>
+              📍推荐：冬阴功Mama面、炸猪颈肉🥩<br>
+              Ps我带朋友去个别真的不爱吃<br>
+              🕒 营业时间：17:00–00:00（周日休息）<br>
+              📍 地址：Chula Soi 22（或搜店名）</p>
+
+            <div class="imgBox">
+              <img src="images/張小蟹.jpg">
+            </div>
+          </div>
+
+         <div class="card item" data-tags="山塘街｜熊貓蘇式豆花">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜熊貓蘇式豆花</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/熊貓蘇式豆花.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️芋泥麻薯豆花✅口感糯叽叽的，绵密香滑，不是很甜的那种👍🏻<br>⭐️茉莉酒酿豆花✅上面是新鲜的茉莉花花苞，酒酿夹着茉莉花的味道，豆花qq弹弹的~太好吃了😋😋</p>
+
+            <div class="imgBox">
+              <img src="images/熊貓蘇式豆花.jpg">
+            </div>
+          </div>
+
+        <div class="card item" data-tags="山塘街｜白居易茶樓">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜白居易茶樓</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/白居易茶樓.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️特色的灯笼🏮还有雅致的中式装修风格，来苏州怎能不品正宗苏帮菜，外酥里嫩，酸甜适中的松鼠桂鱼🐟每一道菜的味道都恰到好处~😋😋</p>
+
+            <div class="imgBox">
+              <img src="images/白居易茶樓.jpg">
+            </div>
+          </div>
+
+        <div class="card item" data-tags="山塘街｜江南蟹殼黃">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜江南蟹殼黃</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/江南蟹殼黃.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️10块钱7个！可以拼口味！有6种口味，分别是豆沙，黑芝麻，梅干菜，葱油，椒盐和萝卜丝。超级推荐3个口味：葱油，椒盐，萝卜丝！</p>
+            <div class="imgBox">
+              <img src="images/江南蟹殼黃.jpg">
+            </div>
+          </div>
+
+        <div class="card item" data-tags="山塘街｜萬福義糕糰">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜萬福義糕糰</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/萬福義糕糰.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️万福兴，一家有百年历史的老字号糕团店，这里的糕团种类繁多，每一款都有其独特的风味。人均：15元/人📍位置：山塘街303号</p>
+            <div class="imgBox">
+              <img src="images/萬福義糕糰.jpg">
+            </div>
+          </div>          
+
+        <div class="card item" data-tags="山塘街｜鑫震源">
+            <div class="cardHead">
+              <div class="title">
+                <h3>山塘街｜鑫震源</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/鑫震源.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️只能说简直了，太好吃了，尤其蟹黄的，他家烧卖也好吃，还要了份虾籽馄饨，也很好吃😋在我们点了两份生煎一份馄饨烧卖的情况下，又额外单独点了一份蟹黄的生煎</p>
+            <div class="imgBox">
+              <img src="images/鑫震源.jpg">
+            </div>
+          </div>   
+
+        <div class="card item" data-tags="蘇州博物館｜翁同阁面馆">
+            <div class="cardHead">
+              <div class="title">
+                <h3>蘇州博物館｜翁同阁面馆</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/翁同阁面馆.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️推荐这家苏州面馆，不是一贯的网红风。蟹黄面很好吃，小姐姐服务态度超级好。免费续面续小菜，二楼风景很雅致。地址：苏州博物馆出口一直沿着梧桐路走大约两百米</p>
+            <div class="imgBox">
+              <img src="images/翁同阁面馆.jpg">
+            </div>
+          </div>
+
+  
+        <div class="card item" data-tags="平江路｜苏香记">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜苏香记</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/苏香记.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️店很小，点完单拿着小盘子坐在平江路边吃，看看河中的小鱼太惬意啦！👉点了鸡爪和鸭头，鹌鹑蛋，鸭脖，卤的真的太入味了！</p>
+            <div class="imgBox">
+              <img src="images/苏香记.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="平江路｜梅月轩·梅花糕">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜梅月轩·梅花糕</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/梅月轩.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️📍平江路55号，红豆梅花糕，太好吃了！很细腻的红豆沙，强烈推荐！</p>
+            <div class="imgBox">
+              <img src="images/梅月轩.jpg">
+            </div>
+          </div>           
+
+        <div class="card item" data-tags="平江路｜李百蟹">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜李百蟹</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/李百蟹.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️📍狮林巷99号，必点招牌蟹黄面，漂亮的苏式糖水、芋泥麻薯、抹茶软酪、草莓麻薯冰，一边吃饭还可以看到摇橹船的阿婆，真的太惬意了</p>
+            <div class="imgBox">
+              <img src="images/李百蟹.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="平江路｜山海焗·苏州家常菜砂锅煲">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜山海焗·苏州家常菜砂锅煲</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/山海焗.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️📍建新巷10号，平时本地人比较多，必点酱香牛蛙鸭舌煲，有烟火气十足，巴掌大太湖大虾，有小朋友的闭眼冲，还有苏帮菜松鼠桂鱼，鱼肉炸的很脆，浇汁鲜甜，嘎嘎好吃</p>
+            <div class="imgBox">
+              <img src="images/山海焗.jpg">
+            </div>
+          </div> 
+
+        <div class="card item" data-tags="平江路｜囍老板·苏州热炒饭店">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜囍老板·苏州热炒饭店</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/囍老板.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️📍丁家巷23号，苏州家常菜，10年老店，推荐，蟹粉鲜虾粉丝煲，虾好大只，现剥蟹黄。老苏州咸肉菜饭，亲测好吃</p>
+            <div class="imgBox">
+              <img src="images/囍老板.jpg">
+            </div>
+          </div>
+
+        <div class="card item" data-tags="平江路｜啞巴生煎">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜啞巴生煎</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/啞巴生煎.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️最喜欢生煎的酥脆外皮，皮冻给的很足，肉馅鲜甜一口爆汁喝到爽，哑巴生煎不愧是招牌，常吃常新😋</p>
+            <div class="imgBox">
+              <img src="images/啞巴生煎.jpg">
+            </div>
+          </div> 
+
+        <div class="card item" data-tags="平江路｜茉香枕河">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜茉香枕河</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/茉香枕河.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️店里装修很有江南那味儿，拍照也出片。招牌东坡肉超大一块，肥瘦刚好，入口即化；蟹粉豆腐拌饭绝了，豆香混着蟹鲜，能干两碗饭</p>
+            <div class="imgBox">
+              <img src="images/茉香枕河.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="平江路｜百年福">
+            <div class="cardHead">
+              <div class="title">
+                <h3>平江路｜百年福</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/百年福.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️💰大份20块12个，小份15块8个，反正如果排队人不多可以尝尝！</p>
+            <div class="imgBox">
+              <img src="images/百年福.jpg">
+            </div>
+          </div> 
+
+        <div class="card item" data-tags="觀前路｜晚园苏式火锅">
+            <div class="cardHead">
+              <div class="title">
+                <h3>觀前路｜晚园苏式火锅</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/晚园苏式火锅.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️📍观前街57号，推门坠入江南园林画卷，青瓦白墙配雕花木窗，江南味儿的火锅，番茄锅巨清爽哦，糯叽叽甜品又好看、又好吃</p>
+            <div class="imgBox">
+              <img src="images/晚园苏式火锅.jpg">
+            </div>
+          </div>           
+
+        <div class="card item" data-tags="觀前路｜探花·意境江南菜">
+            <div class="cardHead">
+              <div class="title">
+                <h3>觀前路｜探花·意境江南菜</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/探花·意境江南菜.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️店里装修很有江南那味儿，拍照也出片。招牌东坡肉超大一块，肥瘦刚好，入口即化；蟹粉豆腐拌饭绝了，豆香混着蟹鲜，能干两碗饭</p>
+            <div class="imgBox">
+              <img src="images/探花·意境江南菜.jpg">
+            </div>
+          </div>   
+          
+        <div class="card item" data-tags="觀前路｜仁春园·苏帮菜·苏式面宴">
+            <div class="cardHead">
+              <div class="title">
+                <h3>觀前路｜仁春园·苏帮菜·苏式面宴</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/仁春园.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️店里装修很有江南那味儿，拍照也出片。招牌东坡肉超大一块，肥瘦刚好，入口即化；蟹粉豆腐拌饭绝了，豆香混着蟹鲜，能干两碗饭</p>
+            <div class="imgBox">
+              <img src="images/仁春园.jpg">
+            </div>
+          </div>   
+          
+        <div class="card item" data-tags="十全街｜西班牙小廚">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜西班牙小廚</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/西班牙小廚.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️环境很好，很适合拍照，也很出片！但是餐食欠点意思出餐很慢（30分钟左右）为了拍照去的话，可以忽略我们点了西班牙海鲜烩饭，海鲜感觉不那么新鲜，口味还可以；烤鸡部分位置很柴😭还有青口贝，味道还行，中规中矩
+，总结：为了拍照好看，可以去。为了美食需要考量考量，可以首次尝鲜～</p>
+            <div class="imgBox">
+              <img src="images/西班牙小廚.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="十全街｜嘿啰面包">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜嘿啰面包</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/嘿啰面包.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️布甸包和飞鱼籽法棍🥖是主推产品，布甸包很好吃，不踩雷👍一口气能炫4个！飞鱼籽法棍也不错，尤其是黑松露口味（有些宝子吃不习惯鱼籽会觉得腥，两极分化严重）其他的面包很多都是巴掌大，一个顶饱！就是有些小贵～
+，总结：可以冲主推品，价格略贵</p>
+            <div class="imgBox">
+              <img src="images/嘿啰面包.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="十全街｜fufuland">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜fufuland</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/fufuland.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️装修和店名一样，奶fufu的～甜品🍮颜值很高，吃多会腻r💰人均18
+，总结：适合尝鲜和闺蜜、朋友共吃一个</p>
+            <div class="imgBox">
+              <img src="images/fufuland.jpg">
+            </div>
+          </div>  
+
+        <div class="card item" data-tags="十全街｜卢记烧饼">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜卢记烧饼</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/卢记烧饼.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️好吃好吃！分量足，可以自己选择口味，里面的肉条也不腻哦～
+，总结：还会回购！</p>
+            <div class="imgBox">
+              <img src="images/卢记烧饼.jpg">
+            </div>
+          </div>  
+          
+        <div class="card item" data-tags="十全街｜chill创意韩国料理">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜chill创意韩国料理</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/chill创意韩国料理.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️环境拍照很好看！菜品也很好吃，会约朋友去几次的地方👍</p>
+            <div class="imgBox">
+              <img src="images/chill创意韩国料理.jpg">
+            </div>
+          </div>  
+          
+        <div class="card item" data-tags="十全街｜连杏双皮奶">
+            <div class="cardHead">
+              <div class="title">
+                <h3>十全街｜连杏双皮奶</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/连杏双皮奶.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️中规中矩，无惊艳的地方，双皮奶的味道，奶味很重，💰人均18</p>
+            <div class="imgBox">
+              <img src="images/连杏双皮奶.jpg">
+            </div>
+          </div>  
+          
+        <div class="card item" data-tags="網師園｜姑苏桥·文人苏式面馆">
+            <div class="cardHead">
+              <div class="title">
+                <h3>網師園｜姑苏桥·文人苏式面馆</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/姑苏桥·文人苏式面馆.jpg">看圖片</button>
+              </div>
+            </div>
+            <p class="desc">⭐️🍜 第一站：姑苏桥文人苏式面馆
+▪️“一碗面，见江南” 不只是标语。这里把苏式面的精致做到了极致，从汤头到浇头，都透着文人的讲究。
+<br>🥩强推「匠心猪肝」：猪肝滑嫩如绸缎，酱香浓郁裹满每一根劲道细面，是惊艳味蕾的苏式烟火气。
+<br>🐟推荐「松鼠桂鱼」松子的香醇搭配酥脆的鱼肉，一口品人间美味
+<br>🌿环境是隐世的诗：店内笔墨纸砚点缀，吃面也成了风雅事。建议可以先在dp线上取号，光线透过木格窗，拍照自带复古滤镜</p>
+            <div class="imgBox">
+              <img src="images/姑苏桥·文人苏式面馆.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bill -->
+      <div class="section" id="bill" data-section="bill">
+        <div class="sectionTitle">
+          <h2>記帳</h2><span>Split Bill（自動結算）</span>
+        </div>
+
+        <div class="grid billGrid">
+          <div class="card">
+            <div class="cardHead">
+              <div class="title">
+                <h3>新增帳目</h3>
                 <div class="meta">
-                  <span class="pill">🍜 熱食</span>
-                  <span class="pill">🌙 晚上</span>
+                  <span class="pill">localStorage 自動保存</span>
+                  <span class="pill">TWD / THB</span>
                 </div>
               </div>
               <div class="actions">
-                <button class="btn" data-toast="已加入：晚餐備選">加入</button>
+                <button class="btn secondary" id="billClear">清空</button>
               </div>
             </div>
-            <p class="desc">先斗町或河岸附近都不錯，記得先查營業時間。</p>
+
+            <div class="field" style="margin-top:12px;">
+              <label>品項名稱</label>
+              <input class="input" id="billTitle" placeholder="例如：晚餐 / 車費 / 門票" />
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label>金額</label>
+              <input class="input mono" id="billAmount" type="number" inputmode="decimal" placeholder="例如：120" />
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label>幣別</label>
+              <div class="chipRow" id="billCurrency">
+                <button class="chipBtn active" data-cur="CNY">CNY</button>
+                <button class="chipBtn" data-cur="TWD">TWD</button>
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label>誰付錢（PAYER）</label>
+              <div class="chipRow" id="billPayer"></div>
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label>分給誰（SPLIT WITH）</label>
+              <div class="chipRow" id="billSplit"></div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <button class="btn" id="billAdd" style="width:100%;">加入帳目</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="cardHead">
+              <div class="title">
+                <h3>結算（Balance）</h3>
+                <div class="meta">
+                </div>
+              </div>
+            </div>
+
+            <div class="billTable" id="billBalance" style="margin-top:12px;"></div>
+          </div>
+
+          <div class="card">
+            <div class="cardHead">
+              <div class="title">
+                <h3>最近紀錄</h3>
+              </div>
+            </div>
+            <div class="billTable" id="billList" style="margin-top:12px;"></div>
           </div>
         </div>
       </div>
 
       <!-- Info -->
-      <div class="section" id="info">
+      <div class="section" id="info" data-section="info">
         <div class="sectionTitle">
-          <h2>交通資訊</h2><span>懶人版</span>
+          <h2>資訊</h2><span></span>
         </div>
 
         <div class="grid">
-          <div class="card item" data-tags="交通">
+          <div class="card item" data-tags="注意事項">
             <div class="cardHead">
               <div class="title">
-                <h3>移動策略</h3>
-                <div class="meta">
-                  <span class="pill">🚌 巴士</span>
-                  <span class="pill">🚇 地鐵</span>
-                  <span class="pill">🚆 JR</span>
-                </div>
+                <h3>注意事項</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/注意事項.jpg">看圖片</button>
               </div>
             </div>
-            <p class="desc">市區巴士方便但會塞車；長距離用 JR/地鐵更穩。嵐山建議早出。</p>
+            <div class="imgBox">
+              <img src="images/注意事項.jpg">
+            </div>
           </div>
 
-          <div class="card item" data-tags="緊急">
+          <div class="card item" data-tags="緊急電話">
             <div class="cardHead">
               <div class="title">
-                <h3>緊急聯絡</h3>
-                <div class="meta">
-                  <span class="pill">🚓 警察 110</span>
-                  <span class="pill">🚑 救護 119</span>
-                </div>
+                <h3>緊急電話</h3>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-img="images/緊急電話.jpg">看圖片</button>
               </div>
             </div>
-            <p class="desc">手機可先存住宿地址（英日皆可），搭車時很好用。</p>
+            <div class="imgBox">
+              <img src="images/緊急電話.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide -->
+      <div class="section" id="guide" data-section="guide">
+        <div class="sectionTitle">
+          <h2>指南</h2><span>出發前 & 現場備忘</span>
+        </div>
+
+        <div class="grid">
+          <div class="card item" data-tags="必帶清單">
+            <div class="cardHead">
+              <div class="title">
+                <h3>必帶清單</h3>
+                <div class="meta">
+                  <span class="pill">證件</span>
+                  <span class="pill">網路</span>
+                  <span class="pill">轉接頭</span>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+            </div>
+            <p class="desc">護照/台胞證、行動電源、充電線、轉接頭、舒適好走的鞋、雨具（江南水氣）。</p>
+          </div>
+
+          <div class="card item" data-tags="拍照技巧">
+            <div class="cardHead">
+              <div class="title">
+                <h3>拍照小技巧（園林 / 水巷）</h3>
+                <div class="meta">
+                  <span class="pill">窗框借景</span>
+                  <span class="pill">倒影</span>
+                  <span class="pill">清晨光</span>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+            </div>
+            <p class="desc">找窗框、門洞做「框景」；水面平靜時拍倒影；清晨/傍晚光最柔和最出片。</p>
+          </div>
+
+          <div class="card item" data-tags="小提醒">
+            <div class="cardHead">
+              <div class="title">
+                <h3>小提醒</h3>
+                <div class="meta">
+                  <span class="pill">門票</span>
+                  <span class="pill">預約</span>
+                  <span class="pill">路線</span>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn secondary" data-detail>看詳情</button>
+              </div>
+            </div>
+            <p class="desc">熱門園林/博物館有些要預約；你已經寫好推薦路線，照著走最省力。</p>
           </div>
         </div>
       </div>
@@ -737,77 +1853,532 @@
     </div>
   </div>
 
-
+  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modalBackdrop" data-close></div>
+    <div class="modalSheet">
+      <button class="modalClose" data-close>✕</button>
+      <div class="modalBody" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottomNav">
+    <button class="navBtn active" data-go="itinerary">🧭<span>行程</span></button>
+    <button class="navBtn" data-go="food">🍜<span>探索</span></button>
+    <button class="navBtn" data-go="bill">🧾<span>記帳</span></button>
+    <button class="navBtn" data-go="info">✈️<span>資訊</span></button>
+  </nav>
+
   <script>
-    // Tabs switch
-    const tabs = document.querySelectorAll('.tab');
-    const sections = document.querySelectorAll('.section');
-    tabs.forEach(t => {
-      t.addEventListener('click', () => {
-        tabs.forEach(x => x.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
-        t.classList.add('active');
-        document.getElementById(t.dataset.tab).classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-
-    // Map open
-    document.querySelectorAll('[data-map]').forEach(btn => {
-      btn.addEventListener('click', () => window.open(btn.dataset.map, '_blank', 'noopener,noreferrer'));
-    });
-
-    // Copy
+    /* =========================
+      Helpers
+    ========================= */
     const toastEl = document.getElementById('toast');
     const showToast = (msg) => {
+      if (!toastEl) return;
       toastEl.textContent = msg;
       toastEl.style.display = 'block';
       clearTimeout(showToast.t);
       showToast.t = setTimeout(() => toastEl.style.display = 'none', 1600);
     };
 
-    document.querySelectorAll('[data-copy]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        try{
-          await navigator.clipboard.writeText(btn.dataset.copy);
-          showToast('已複製：' + btn.dataset.copy);
-        }catch(e){
-          showToast('複製失敗（瀏覽器權限）');
+    const q = document.getElementById('q');
+    const count = document.getElementById('count');
+
+    // ✅ 美食分區：目前選到哪一個（all / 山塘街 / 平江路 / 觀前 / 十全街 / other）
+    let activeFoodKey = 'all';
+
+    const FOOD_AREAS = ['山塘街', '平江路', '觀前', '十全街'];
+
+    const getActiveSections = () => Array.from(document.querySelectorAll('.section.active'));
+
+    const getVisibleItems = () => {
+      const secs = getActiveSections();
+      const nodes = [];
+      secs.forEach(sec => {
+        sec.querySelectorAll('.item, .titem').forEach(n => nodes.push(n));
+      });
+      return nodes;
+    };
+
+    // ✅ 從美食卡片抓「區域」：優先 data-area，沒有就從 data-tags 用「｜」切第一段
+    const getFoodAreaOfCard = (card) => {
+      const rawArea = (card.dataset.area || '').trim();
+      if (rawArea) return rawArea;
+
+      const rawTags = (card.dataset.tags || '').trim();
+      if (rawTags.includes('｜')) return rawTags.split('｜')[0].trim();
+      if (rawTags.includes('|')) return rawTags.split('|')[0].trim();
+
+      // 沒資料就回空
+      return '';
+    };
+
+    // ✅ 判斷某張美食卡片是否通過分區篩選
+    const passFoodAreaFilter = (card) => {
+      if (activeFoodKey === 'all') return true;
+
+      const area = getFoodAreaOfCard(card); // 例如：山塘街
+      if (!area) {
+        // 沒 area 的：只有在 other 才顯示
+        return activeFoodKey === 'other';
+      }
+
+      if (activeFoodKey === 'other') {
+        // other = 不屬於常見四區
+        return !FOOD_AREAS.some(a => area.includes(a));
+      }
+
+      // 一般：要包含該區域
+      return area.includes(activeFoodKey);
+    };
+
+    const applyFilter = () => {
+      const v = (q?.value || '').trim().toLowerCase();
+      let shown = 0;
+
+      // 只處理目前 active section 的 items
+      getVisibleItems().forEach(el => {
+        const text = (el.textContent + ' ' + (el.dataset.tags || '')).toLowerCase();
+
+        // 1) 搜尋關鍵字
+        const okSearch = !v || text.includes(v);
+
+        // 2) 美食分區（只對 #food 裡的 .item 生效）
+        const sec = el.closest('.section');
+        const isFoodCard = sec && sec.id === 'food' && el.classList.contains('item');
+        const okFoodArea = isFoodCard ? passFoodAreaFilter(el) : true;
+
+        const ok = okSearch && okFoodArea;
+        el.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+
+      if (count) count.textContent = shown;
+    };
+
+    if (q) q.addEventListener('input', applyFilter);
+
+    /* =========================
+      Top Day Tabs (Day1~Day4)
+      ✅ 只綁 day 的 tab，避免 food/info 混進來
+    ========================= */
+    const allTabs = Array.from(document.querySelectorAll('.tab'));
+    const dayTabs = allTabs.filter(t => /^day\d+$/i.test(t.dataset.tab || ''));
+
+    let currentDayId = 'day1';
+
+    const showSection = (id) => {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      applyFilter();
+    };
+
+    const setDayTabActive = (id) => {
+      dayTabs.forEach(x => x.classList.remove('active'));
+      const t = dayTabs.find(t => t.dataset.tab === id);
+      if (t) t.classList.add('active');
+    };
+
+    dayTabs.forEach(t => {
+      t.addEventListener('click', () => {
+        currentDayId = t.dataset.tab;
+        setDayTabActive(currentDayId);
+        showSection(currentDayId);
+        setBottomNavActive('itinerary');
+      });
+    });
+
+    /* =========================
+      Bottom Nav
+    ========================= */
+    const navBtns = document.querySelectorAll('.bottomNav .navBtn');
+
+    function setBottomNavActive(key) {
+      navBtns.forEach(b => b.classList.remove('active'));
+      const btn = Array.from(navBtns).find(b => b.dataset.go === key);
+      if (btn) btn.classList.add('active');
+
+      // Tabs 只在行程顯示
+      const tabsEl = document.getElementById('tabs');
+      if (tabsEl) {
+        tabsEl.style.display = (key === 'itinerary') ? 'flex' : 'none';
+      }
+    }
+
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const go = btn.dataset.go;
+        setBottomNavActive(go);
+
+        if (go === 'itinerary') {
+          setDayTabActive(currentDayId);
+          showSection(currentDayId);
+        } else if (go === 'food') {
+          showSection('food');
+        } else if (go === 'bill') {
+          showSection('bill');
+        } else if (go === 'info') {
+          showSection('info');
+        } else if (go === 'guide') {
+          showSection('guide');
         }
       });
     });
 
-    document.querySelectorAll('[data-toast]').forEach(btn => {
-      btn.addEventListener('click', () => showToast(btn.dataset.toast));
+    // 初始：行程頁顯示 tabs
+    setBottomNavActive('itinerary');
+    applyFilter();
+
+    /* =========================
+      Image toggle (data-img)
+      支援 .card 與 .tCard
+    ========================= */
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-img]');
+      if (!btn) return;
+
+      const host = btn.closest('.card') || btn.closest('.tCard');
+      if (!host) return;
+
+      const src = btn.dataset.img;
+
+      const imgBox = host.querySelector('.imgBox');
+      const img = imgBox ? imgBox.querySelector('img') : null;
+
+      if (img) img.src = encodeURI(src);
+
+      host.classList.toggle('show-img');
+      btn.textContent = host.classList.contains('show-img') ? '收起圖片' : '看圖片';
     });
 
-    // Stay nav
-    document.getElementById('stayNav').addEventListener('click', () => {
-      window.open("https://www.google.com/maps/search/?api=1&query=Hotel%20Mystays%20Kyoto%20Shijo", "_blank", "noopener,noreferrer");
-    });
+    /* =========================
+      Modal (通用詳情)
+    ========================= */
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
 
-    // Search filter
-    const q = document.getElementById('q');
-    const count = document.getElementById('count');
-    const allItems = () => document.querySelectorAll('.item, .titem');
-
-    const applyFilter = () => {
-      const v = q.value.trim().toLowerCase();
-      let shown = 0;
-      allItems().forEach(el => {
-        const text = (el.textContent + ' ' + (el.dataset.tags || '')).toLowerCase();
-        const ok = !v || text.includes(v);
-        el.style.display = ok ? '' : 'none';
-        if(ok) shown++;
-      });
-      count.textContent = shown;
+    const openModal = (html) => {
+      if (!modal || !modalBody) return;
+      modalBody.innerHTML = html;
+      modal.classList.add('show');
+    };
+    const closeModal = () => {
+      if (!modal || !modalBody) return;
+      modal.classList.remove('show');
+      modalBody.innerHTML = '';
     };
 
-    q.addEventListener('input', applyFilter);
-    // initial count
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target.matches('[data-close]')) closeModal();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-detail]');
+      if (!btn) return;
+
+      const host = btn.closest('.tCard') || btn.closest('.card');
+      if (!host) return;
+
+      const title = host.querySelector('h3') ? host.querySelector('h3').textContent.trim() : '詳情';
+      const timeEl = host.closest('.row') ? host.closest('.row').querySelector('.time') : null;
+      const timeText = timeEl ? timeEl.textContent.trim() : '';
+
+      const small = host.querySelector('.small') ? host.querySelector('.small').innerHTML.trim() : '';
+      const desc = host.querySelector('.desc') ? host.querySelector('.desc').innerHTML.trim() : '';
+
+      const img = host.querySelector('.imgBox img') ? host.querySelector('.imgBox img').getAttribute('src') : '';
+      const mapLink = host.querySelector('a.link') ? host.querySelector('a.link').getAttribute('href') : '';
+
+      openModal(`
+        <h2>${title}</h2>
+        <div class="sub">${timeText ? `⏰ ${timeText}` : ''}</div>
+        ${img ? `<img src="${encodeURI(img)}" style="width:100%;border-radius:14px;border:1px solid rgba(30,35,38,.14);margin: 6px 0 10px;">` : ''}
+        <div class="box">
+          ${small || desc || '（尚無詳細內容）'}
+        </div>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          ${mapLink ? `<a class="link" target="_blank" href="${mapLink}">📍 開地圖</a>` : ''}
+          <button class="btn secondary" data-close style="margin-left:auto;">關閉</button>
+        </div>
+      `);
+    });
+
+    /* =========================
+      Explore segmented filter
+      ✅ 修正：不再直接改 display（會被 applyFilter 覆蓋）
+      ✅ 改成：只更新 activeFoodKey，然後 applyFilter
+    ========================= */
+    const foodSeg = document.getElementById('foodSeg');
+
+    if (foodSeg) {
+      foodSeg.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-foodfilter]');
+        if (!b) return;
+
+        // 切換按鈕樣式
+        foodSeg.querySelectorAll('.segBtn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+
+        // ✅ 更新全域狀態
+        activeFoodKey = (b.dataset.foodfilter || 'all').trim();
+
+        // ✅ 重新套用「搜尋 + 分區」的總篩選
+        applyFilter();
+      });
+    }
+
+    /* =========================
+      Day Route (Google Maps dir api)
+    ========================= */
+    const buildDirUrl = (places) => {
+      const cleaned = places
+        .map(s => (s || '').trim())
+        .filter(Boolean);
+
+      // 去除連續重複
+      const uniq = [];
+      cleaned.forEach(p => {
+        if (uniq.length === 0 || uniq[uniq.length-1] !== p) uniq.push(p);
+      });
+
+      if (uniq.length < 2) return null;
+
+      const origin = encodeURIComponent(uniq[0]);
+      const destination = encodeURIComponent(uniq[uniq.length-1]);
+      const waypoints = uniq.slice(1, -1).map(encodeURIComponent).join('|');
+
+      let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+      if (waypoints) url += `&waypoints=${waypoints}`;
+      return url;
+    };
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-route]');
+      if (!btn) return;
+
+      const dayId = btn.dataset.route;
+      const sec = document.getElementById(dayId);
+      if (!sec) return showToast('找不到該天行程');
+
+      const places = Array.from(sec.querySelectorAll('.tCard')).map(card => {
+        // 1) 優先用 data-place
+        const p = (card.dataset.place || '').trim();
+        if (p) return p;
+
+        // 2) 沒有 data-place 就退回用 h3
+        const h3 = card.querySelector('h3');
+        return (h3 ? h3.textContent : '').trim();
+      }).filter(Boolean);
+
+      const url = buildDirUrl(places);
+
+      if (!url) return showToast('該天行程點太少，無法產生路線');
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+
+    /* =========================
+      Bill (Split)
+    ========================= */
+    const PEOPLE = ['卓呈浩','吳添至', '黃品叡', '黃柏諭', '劉昱巖', '林彥緯'];
+    const STORAGE_KEY = 'sz_sh_guide_bill_v1';
+
+    const billTitle = document.getElementById('billTitle');
+    const billAmount = document.getElementById('billAmount');
+    const billPayer = document.getElementById('billPayer');
+    const billSplit = document.getElementById('billSplit');
+    const billBalance = document.getElementById('billBalance');
+    const billList = document.getElementById('billList');
+    const billAdd = document.getElementById('billAdd');
+    const billClear = document.getElementById('billClear');
+    const billCurrency = document.getElementById('billCurrency');
+
+    let state = {
+      currency: 'CNY',
+      payer: PEOPLE[0],
+      split: new Set(PEOPLE),
+      items: []
+    };
+
+    const loadState = () => {
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.items)) {
+          state.items = parsed.items;
+        }
+      }catch(e){}
+    };
+
+    const saveState = () => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ items: state.items }));
+    };
+
+    const renderPeopleChips = () => {
+      if (!billPayer || !billSplit) return;
+
+      billPayer.innerHTML = PEOPLE.map(name => `
+        <button class="chipBtn ${state.payer === name ? 'active' : ''}" data-payer="${name}">${name}</button>
+      `).join('');
+
+      billSplit.innerHTML = PEOPLE.map(name => `
+        <button class="chipBtn ${state.split.has(name) ? 'active' : ''}" data-split="${name}">${name}</button>
+      `).join('');
+    };
+
+    const formatMoney = (n) => {
+      const v = Math.round(n * 100) / 100;
+      return v.toFixed(2);
+    };
+
+    const calcBalances = () => {
+      const balances = {};
+      for (const it of state.items) {
+        const cur = it.currency;
+        balances[cur] ||= {};
+        PEOPLE.forEach(p => balances[cur][p] ||= 0);
+
+        const share = it.amount / it.splitWith.length;
+        balances[cur][it.payer] += it.amount;
+        it.splitWith.forEach(p => {
+          balances[cur][p] -= share;
+        });
+      }
+      return balances;
+    };
+
+    const renderBill = () => {
+      if (!billBalance || !billList) return;
+
+      const balances = calcBalances();
+      const curs = Object.keys(balances);
+      billBalance.innerHTML = '';
+
+      if (curs.length === 0) {
+        billBalance.innerHTML = `<div class="billRow"><div>目前沒有需要結算的款項</div></div>`;
+      } else {
+        curs.forEach(cur => {
+          const box = document.createElement('div');
+          box.className = 'billRow';
+          box.innerHTML = `<div style="font-weight:950;">${cur} BALANCE</div><div class="mono">${PEOPLE.map(p => `${p}: ${formatMoney(balances[cur][p])}`).join(' · ')}</div>`;
+          billBalance.appendChild(box);
+        });
+      }
+
+      billList.innerHTML = '';
+      if (state.items.length === 0) {
+        billList.innerHTML = `<div class="billRow"><div>目前沒有帳目</div></div>`;
+      } else {
+        state.items.slice().reverse().forEach((it, idx) => {
+          const realIndex = state.items.length - 1 - idx;
+          const row = document.createElement('div');
+          row.className = 'billRow';
+          row.innerHTML = `
+            <div>
+              <div style="font-weight:950;">${it.title || '（未命名）'}</div>
+              <div style="color:rgba(30,35,38,.65);font-size:12.5px;margin-top:3px;">
+                ${it.currency} ${formatMoney(it.amount)} · payer: ${it.payer} · split: ${it.splitWith.join(', ')}
+              </div>
+            </div>
+            <button class="btn secondary" data-delbill="${realIndex}">刪除</button>
+          `;
+          billList.appendChild(row);
+        });
+      }
+    };
+
+    if (billCurrency) {
+      billCurrency.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-cur]');
+        if (!b) return;
+        billCurrency.querySelectorAll('.chipBtn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        state.currency = b.dataset.cur;
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const p = e.target.closest('[data-payer]');
+      if (p) {
+        state.payer = p.dataset.payer;
+        renderPeopleChips();
+        return;
+      }
+      const s = e.target.closest('[data-split]');
+      if (s) {
+        const name = s.dataset.split;
+        if (state.split.has(name)) state.split.delete(name);
+        else state.split.add(name);
+
+        if (state.split.size === 0) state.split.add(name);
+        renderPeopleChips();
+        return;
+      }
+      const del = e.target.closest('[data-delbill]');
+      if (del) {
+        const idx = Number(del.dataset.delbill);
+        if (!Number.isNaN(idx)) {
+          state.items.splice(idx, 1);
+          saveState();
+          renderBill();
+          showToast('已刪除一筆');
+        }
+      }
+    });
+
+    if (billAdd) {
+      billAdd.addEventListener('click', () => {
+        const title = (billTitle?.value || '').trim();
+        const amount = Number(billAmount?.value || 0);
+
+        const splitWith = Array.from(state.split);
+        if (!amount || amount <= 0) return showToast('請輸入正確金額');
+        if (splitWith.length === 0) return showToast('請選分給誰');
+
+        const item = {
+          title,
+          amount,
+          currency: state.currency,
+          payer: state.payer,
+          splitWith,
+          ts: Date.now()
+        };
+        state.items.push(item);
+        saveState();
+        renderBill();
+
+        if (billTitle) billTitle.value = '';
+        if (billAmount) billAmount.value = '';
+        showToast('已加入帳目');
+      });
+    }
+
+    if (billClear) {
+      billClear.addEventListener('click', () => {
+        state.items = [];
+        saveState();
+        renderBill();
+        showToast('已清空');
+      });
+    }
+
+    // init bill
+    loadState();
+    renderPeopleChips();
+    renderBill();
+
+    // 最後再跑一次（確保 count 正確）
     applyFilter();
   </script>
+
 </body>
 </html>
